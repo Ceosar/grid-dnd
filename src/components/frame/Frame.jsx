@@ -31,7 +31,7 @@ const Frame = ({blocks}) => {
                 cols={12}
                 rowHeight={30}
                 isDraggable={true}
-                width={1200}
+                width={1600}
                 preventCollision={true}
                 verticalCompact= {null}
                 compactType={null}
