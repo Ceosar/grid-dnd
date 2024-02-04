@@ -1,4 +1,11 @@
-.toolbar-layout{
-    width: 100px;
-    background-color: grey;
+.toolbar_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.plugin-toolbar_wrapper{
+    width: 200px;
+    height: 100px;
+    border: 1px solid black;
 }

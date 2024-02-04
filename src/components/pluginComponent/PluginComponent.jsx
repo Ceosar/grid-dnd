@@ -1,10 +1,22 @@
 import React from 'react';
 import "./PluginComponent.css"
 
-const PluginComponent = () => {
+const PluginComponent = ({ className, onDragStart }) => {
+    const handleDragStart = () => {
+        const block = {
+            className: "frame-component_wrapper",
+        };
+        onDragStart(block);
+    };
+
     return (
-        <div>
-            
+        <div
+            className={className}
+            draggable={true}
+            unselectable="on"
+            onDragStart={handleDragStart}
+        >
+            Droppable Element (Drag me!)
         </div>
     );
 }
