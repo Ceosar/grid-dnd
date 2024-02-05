@@ -1,28 +1,45 @@
-import React, { useState } from 'react';
-import Toolbar from '../toolbar/Toolbar';
-import Frame from '../frame/Frame';
-import "./PluginsFrame.css";
+import React from 'react';
+import { Row, Col } from "antd";
+import FrameGrid from './frameGrid/FrameGrid';
+import PluginElement from './pluginElement/pluginElement';
 
-import 'react-grid-layout/css/styles.css';
-import 'react-resizable/css/styles.css';
 
 const PluginsFrame = () => {
-    const [blocks, setBlocks] = useState([]);
-
-    console.log(blocks)
-
-    const handleBlockDrop = (className) => {
-        const block = {
-            className: className,
-        };
-        setBlocks([...blocks, block]);
-    };
-
     return (
-        <div className='plugins-frame_wrapper'>
-            <Frame blocks={blocks} />
-            <Toolbar onBlockDrop={handleBlockDrop} />
-        </div>
+        <Row gutter={16} style={{ width: "100vw", height: "100vh" }}>
+            <Col span={3}>
+                <div
+                    key="1"
+                    draggable
+                    onDragStart={(e) => e.dataTransfer.setData("type", "container")}
+                    style={{
+                        padding: "10px",
+                        background: "#e0e0e0",
+                        borderRadius: "5px",
+                        marginBottom: "16px",
+                        cursor: "move",
+                    }}
+                >
+                    <span>Container</span>
+                </div>
+
+                {/* <PluginElement
+                    onDragStart={(e) => {
+                        e.dataTransfer.setData("type", "container");
+                        const newContainer = {
+                            type: "container",
+                            i: String(Math.random().toFixed(3)),
+                            w: 1,
+                        };
+                        setLayout((prevLayout) => [...prevLayout, newContainer]);
+                    }}
+                    setLayout={setLayout}
+                /> */}
+            </Col>
+            <Col span={21} style={{ padding: "16px" }}>
+                <FrameGrid />
+            </Col>
+        </Row>
     );
 }
 
