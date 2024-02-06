@@ -5,39 +5,20 @@ import PluginElement from './pluginElement/pluginElement';
 
 
 const PluginsFrame = () => {
+    const plugins = [
+        { id: 1, pluginName: "rating", pluginTitle: "Общий рейтинг", data: 4.8 },
+        { id: 21412, pluginName: "response", pluginTitle: "Отзывы", data: 25246 },
+        { id: 4124, pluginName: "markets", pluginTitle: "Маркетплейсы", data: 4.8 },
+    ]
     return (
         <Row gutter={16} style={{ width: "100vw", height: "100vh" }}>
             <Col span={3}>
-                <div
-                    key="1"
-                    draggable
-                    onDragStart={(e) => e.dataTransfer.setData("type", "container")}
-                    style={{
-                        padding: "10px",
-                        background: "#e0e0e0",
-                        borderRadius: "5px",
-                        marginBottom: "16px",
-                        cursor: "move",
-                    }}
-                >
-                    <span>Container</span>
-                </div>
-
-                {/* <PluginElement
-                    onDragStart={(e) => {
-                        e.dataTransfer.setData("type", "container");
-                        const newContainer = {
-                            type: "container",
-                            i: String(Math.random().toFixed(3)),
-                            w: 1,
-                        };
-                        setLayout((prevLayout) => [...prevLayout, newContainer]);
-                    }}
-                    setLayout={setLayout}
-                /> */}
+                {plugins.map((pl, index) => (
+                    <PluginElement key={index} pluginData={pl} />
+                ))}
             </Col>
             <Col span={21} style={{ padding: "16px" }}>
-                <FrameGrid />
+                <FrameGrid plugins={plugins} />
             </Col>
         </Row>
     );

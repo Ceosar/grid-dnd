@@ -18,18 +18,25 @@ const FrameGrid = () => {
             return;
         }
 
+        console.log(lay)
+
+        const pluginData = JSON.parse(event.dataTransfer.getData("pluginData"));
+
         const new_lay = [...lay].slice(0, -1);
 
         const index = Math.random().toFixed(3);
+
         setLayout([
             ...new_lay,
             {
                 ...item,
                 i: String(index),
                 w: 1,
+                pluginData: pluginData,
             },
         ]);
     };
+
 
     return (
         <ResponsiveGridLayout
@@ -41,7 +48,7 @@ const FrameGrid = () => {
             onDrop={onDrop}
             compactType={null}
             preventCollision
-            rowHeight={50}
+            rowHeight={150}
             onLayoutChange={onLayoutChange}
             style={{
                 minHeight: "800px",
@@ -61,10 +68,9 @@ const FrameGrid = () => {
                         boxShadow:
                             "rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px",
                         borderRadius: "10px",
-                        padding: "15px",
                     }}
                 >
-                    контент
+                    {item.pluginData && item.pluginData.pluginName}
                 </Card>
             ))}
         </ResponsiveGridLayout>

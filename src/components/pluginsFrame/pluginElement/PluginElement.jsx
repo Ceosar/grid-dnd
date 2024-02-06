@@ -1,33 +1,25 @@
+import { Card } from 'antd';
 import React from 'react';
 
-const PluginElement = ({ onDragStart, setLayout }) => {
+
+const PluginElement = ({ pluginData }) => {
+    const handleDragStart = (e) => {
+        e.dataTransfer.setData("type", "container");
+        e.dataTransfer.setData("pluginData", JSON.stringify(pluginData));
+    };
     return (
-        // <div
-        //     key="1"
-        //     draggable
-        //     onDragStart={(e) => {
-        //         e.dataTransfer.setData("type", "container");
-        //         const newContainer = {
-        //             type: "container",
-        //             i: String(Math.random().toFixed(3)),
-        //             w: 1,
-        //         };
-        //         setLayout((prevLayout) => [...prevLayout, newContainer]);
-        //         if (onDragStart) {
-        //             onDragStart(e);
-        //         }
-        //     }}
-        //     style={{
-        //         padding: "10px",
-        //         background: "#e0e0e0",
-        //         borderRadius: "5px",
-        //         marginBottom: "16px",
-        //         cursor: "move",
-        //     }}
-        // >
-        //     <span>Container</span>
-        // </div>
-        <></>
+        <Card
+            hoverable
+            draggable
+            onDragStart={handleDragStart}
+            style={{
+                boxShadow:
+                    "rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px",
+                borderRadius: "10px",
+            }}
+        >
+            <div >{pluginData.pluginName}</div>
+        </Card>
     );
 }
 
