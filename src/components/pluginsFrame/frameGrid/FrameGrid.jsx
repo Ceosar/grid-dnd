@@ -1,18 +1,22 @@
+// Внутри компонента FrameGrid
 import React, { useEffect, useState } from "react";
 import { Layout, Responsive, WidthProvider } from "react-grid-layout";
 import { Row, Col, Card } from "antd";
-import "/node_modules/react-grid-layout/css/styles.css"
-import "/node_modules/react-resizable/css/styles.css"
+import "/node_modules/react-grid-layout/css/styles.css";
+import "/node_modules/react-resizable/css/styles.css";
+import FrameGridElement from "./FrameGridElement";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const FrameGrid = () => {
-    // const [layout, setLayout] = useState([]);
     const [layout, setLayout] = useState(() => {
         const savedLayout = localStorage.getItem("layout");
         return savedLayout ? JSON.parse(savedLayout) : [];
     });
-    const [selectPlugin, setSelectPlugin] = useState(false);
+    const [pluginDataMap, setPluginDataMap] = useState(() => {
+        const savedPluginData = localStorage.getItem("pluginData");
+        return savedPluginData ? JSON.parse(savedPluginData) : {};
+    });
     const [windowHeight, setWindowHeight] = useState(window.innerHeight - 50);
 
     useEffect(() => {
@@ -28,10 +32,11 @@ const FrameGrid = () => {
     }, []);
 
     const onLayoutChange = (layoutChange, layoutsChange) => {
-        console.log(layoutChange, layoutsChange)
-        const simplifiedLayout = layoutChange.map(({ x, y, w, h, i, pluginData }) => ({ x, y, w, h, i, pluginData }));
+        const simplifiedLayout = layoutChange.map(
+            ({ x, y, w, h, i, pluginData }) => ({ x, y, w, h, i, pluginData })
+        );
         localStorage.setItem("layout", JSON.stringify(simplifiedLayout));
-    }
+    };
 
     const onDrop = (lay, item, event) => {
         if (event.dataTransfer?.getData("type") !== "container") {
@@ -39,24 +44,12 @@ const FrameGrid = () => {
             return;
         }
 
-
-        console.log(lay)
-
         const pluginData = JSON.parse(event.dataTransfer.getData("pluginData"));
 
         const new_lay = [...lay].slice(0, -1);
 
         const index = Math.random().toFixed(3);
 
-        // setLayout([
-        //     ...new_lay,
-        //     {
-        //         ...item,
-        //         i: String(index),
-        //         w: 1,
-        //         pluginData: pluginData,
-        //     },
-        // ]);
         setLayout((prevLayout) => [
             ...prevLayout,
             {
@@ -67,9 +60,15 @@ const FrameGrid = () => {
             },
         ]);
 
-        localStorage.setItem("pluginData", JSON.stringify(pluginData));
-    };
 
+        const pluginDataMap = JSON.parse(localStorage.getItem("pluginData")) || {};
+        pluginDataMap[index] = pluginData;
+        localStorage.setItem("pluginData", JSON.stringify(pluginDataMap));
+        setPluginDataMap((prevMap) => ({
+            ...prevMap,
+            [index]: pluginData,
+        }));
+    };
 
     return (
         <ResponsiveGridLayout
@@ -91,6 +90,15 @@ const FrameGrid = () => {
             }}
         >
             {layout.map((item) => (
+                // <FrameGridElement
+                //     key={item.id}
+                //     id={item.id}
+                //     item={item}
+                //     onResize={(layout, oldItem, newItem) => {
+                //         setLayout(layout);
+                //     }}
+                //     pluginDataMap={pluginDataMap}
+                // />
                 <Card
                     key={item.i}
                     id={item.i}
@@ -104,7 +112,7 @@ const FrameGrid = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    {item.pluginData && item.pluginData.pluginName}
+                    {pluginDataMap[item.i] && pluginDataMap[item.i].pluginName}
                 </Card>
             ))}
         </ResponsiveGridLayout>
