@@ -8,10 +8,10 @@ import { LeftOutlined, RightOutlined, DeleteOutlined  } from '@ant-design/icons'
 
 const PluginsFrame = () => {
     const plugins = [
-        { id: 1, pluginName: "rating", pluginTitle: "Общий рейтинг", data: 4.8 },
-        { id: 21412, pluginName: "response", pluginTitle: "Отзывы", data: 25246 },
-        { id: 4124, pluginName: "markets", pluginTitle: "Маркетплейсы", data: 4.8 },
-        { id: 4412, pluginName: "test", pluginTitle: "тест", data: 4.8 },
+        { id: 1, pluginName: "rating", pluginTitle: "Общий рейтинг", data: 4.8, type: "statistic" },
+        { id: 21412, pluginName: "response", pluginTitle: "Отзывы", data: 25246, type: "statistic" },
+        { id: 4124, pluginName: "markets", pluginTitle: "Маркетплейсы", data: 4.8, type: "statistic" },
+        { id: 4412, pluginName: "test", pluginTitle: "тест", data: 4.8, type: "text" },
     ]
     const [menuVisible, setMenuVisible] = useState(true);
 

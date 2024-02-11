@@ -14,6 +14,11 @@ const FrameGrid = () => {
         return savedLayout ? JSON.parse(savedLayout) : [];
     });
 
+    const [pluginDataMap, setPluginDataMap] = useState(() => {
+        const savedPluginData = localStorage.getItem("pluginData");
+        return savedPluginData ? JSON.parse(savedPluginData) : {};
+    });
+
     const [windowHeight, setWindowHeight] = useState(window.innerHeight - 50);
 
     useEffect(() => {
@@ -32,6 +37,13 @@ const FrameGrid = () => {
         localStorage.setItem("layout", JSON.stringify(layoutChange));
         // console.log(layoutChange, layoutsChange)
     }
+
+    const savePluginData = (pluginId, data) => {
+        const pluginData = { ...pluginDataMap };
+        pluginData[pluginId] = data;
+        localStorage.setItem("pluginData", JSON.stringify(pluginData));
+        setPluginDataMap(pluginData);
+    };
 
     const onDrop = (lay, item, event) => {
         if (event.dataTransfer?.getData("type") !== "container") {
@@ -53,9 +65,10 @@ const FrameGrid = () => {
                 ...item,
                 i: String(index),
                 w: 1,
-                pluginData: pluginData,
             },
         ]);
+
+        savePluginData(index, pluginData);
     };
 
 
@@ -93,6 +106,8 @@ const FrameGrid = () => {
                         onResize={(layout, oldItem, newItem) => {
                             setLayout(layout);
                         }}
+                        pluginDataMap={pluginDataMap}
+                        
                     />
                 </section>
             ))}

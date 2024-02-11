@@ -1,6 +1,4 @@
-import { Card } from 'antd';
 import React from 'react';
-
 
 const PluginElement = ({ pluginData }) => {
     const handleDragStart = (e) => {
