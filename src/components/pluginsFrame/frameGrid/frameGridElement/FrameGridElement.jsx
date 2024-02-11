@@ -1,25 +1,54 @@
-import { Button } from 'antd';
 import React from 'react';
+import "./FrameGridElement.css"
+import { CloseOutlined } from '@ant-design/icons';
 
-const FrameGridElement = ({ id, pluginDataMap }) => {
+
+const FrameGridElement = ({ id, pluginDataMap, removePlugin }) => {
     let content;
-
-    console.log(id)
-    console.log(pluginDataMap)
 
     switch (pluginDataMap[id].type) {
         case "statistic":
             content = (
-                <div>
+                <div className='frame-grid-element__content'>
                     {pluginDataMap[id].pluginTitle}
                     {pluginDataMap[id].data}
-                    <Button>Нажать</Button>
+                    <button
+                        style={{
+                            width: "40px",
+                            height: "30px",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            removePlugin(id);
+                        }}
+                    >
+                        <CloseOutlined />
+                    </button>
                 </div>
             );
             break;
         case "text":
             content = (
-                <div>{pluginDataMap[id] && pluginDataMap[id].pluginName}
+                <div>
+                    {pluginDataMap[id] && pluginDataMap[id].pluginName}
+                    <button
+                        style={{
+                            width: "40px",
+                            height: "30px",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            removePlugin(id);
+                        }}
+                    >
+                        <CloseOutlined />
+                    </button>
                 </div>
             );
             break;
@@ -33,7 +62,7 @@ const FrameGridElement = ({ id, pluginDataMap }) => {
     }
 
     return (
-        <section>
+        <section className='frame-grid-element__container'>
             {content}
         </section>
     );

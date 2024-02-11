@@ -3,25 +3,19 @@ import { Row, Col, Button, Menu } from "antd";
 import FrameGrid from './frameGrid/FrameGrid';
 import PluginElement from './pluginElement/pluginElement';
 import "./PluginsFrame.css"
-import { LeftOutlined, RightOutlined, DeleteOutlined  } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 
 const PluginsFrame = () => {
     const plugins = [
-        { id: 1, pluginName: "rating", pluginTitle: "Общий рейтинг", data: 4.8, type: "statistic" },
+        { id: 1, pluginName: "rating", pluginTitle: "Общий рейтинг", data: 4.8, type: "statistic" , resize: false },
         { id: 21412, pluginName: "response", pluginTitle: "Отзывы", data: 25246, type: "statistic" },
         { id: 4124, pluginName: "markets", pluginTitle: "Маркетплейсы", data: 4.8, type: "statistic" },
         { id: 4412, pluginName: "test", pluginTitle: "тест", data: 4.8, type: "text" },
     ]
-    const [menuVisible, setMenuVisible] = useState(true);
+    const [menuVisible, setMenuVisible] = useState(false);
 
-    const handleMenuToggle = () => {
-        setMenuVisible(!menuVisible);
-    }
-
-    const handleButtonClick = () => {
-
-    }
+    const handleMenuToggle = () => { setMenuVisible(!menuVisible) }
 
     return (
         <Row gutter={16} style={{ width: "100vw", height: "100vh" }}>
@@ -46,12 +40,6 @@ const PluginsFrame = () => {
                                 <PluginElement pluginData={pl} />
                             </Menu.Item>
                         ))}
-                        <Menu.Item key="bottom">
-                            <Button
-                                icon={<DeleteOutlined />}
-                                onClick={handleButtonClick}
-                            >Удалить</Button>
-                        </Menu.Item>
                     </Menu>
                 )}
             </Col>

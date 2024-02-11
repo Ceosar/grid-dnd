@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Responsive, WidthProvider } from "react-grid-layout";
-import { Row, Col, Card } from "antd";
+import { Responsive, WidthProvider } from "react-grid-layout";
 import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
 import FrameGridElement from "./frameGridElement/FrameGridElement";
+import "./FrameGrid.css"
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -71,18 +71,27 @@ const FrameGrid = () => {
         savePluginData(index, pluginData);
     };
 
+    const removePlugin = (id) => {
+        const newLayout = layout.filter((item) => item.i !== id);
+        setLayout(newLayout);
+        const newPluginDataMap = { ...pluginDataMap };
+        delete newPluginDataMap[id];
+        setPluginDataMap(newPluginDataMap);
+        localStorage.setItem("layout", JSON.stringify(newLayout));
+        localStorage.setItem("pluginData", JSON.stringify(newPluginDataMap));
+    };
 
     return (
         <ResponsiveGridLayout
             className="layout"
-            cols={{ lg: 6, md: 6, sm: 6, xs: 6, xxs: 6 }}
+            cols={{ lg: 5, md: 5, sm: 5, xs: 5, xxs: 2 }}
             layouts={{ lg: layout }}
             isDroppable
             isDraggable
             onDrop={onDrop}
             compactType={null}
             preventCollision
-            rowHeight={150}
+            rowHeight={276}
             onLayoutChange={onLayoutChange}
             style={{
                 minHeight: `${windowHeight}px`,
@@ -107,7 +116,7 @@ const FrameGrid = () => {
                             setLayout(layout);
                         }}
                         pluginDataMap={pluginDataMap}
-                        
+                        removePlugin={removePlugin}
                     />
                 </section>
             ))}
