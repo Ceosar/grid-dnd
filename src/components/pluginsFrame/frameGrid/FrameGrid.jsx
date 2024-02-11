@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Responsive, WidthProvider } from "react-grid-layout";
 import { Row, Col, Card } from "antd";
 import "/node_modules/react-grid-layout/css/styles.css"
@@ -8,9 +8,29 @@ import FrameGridElement from "./frameGridElement/FrameGridElement";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const FrameGrid = () => {
-    const [layout, setLayout] = useState([]);
+    // const [layout, setLayout] = useState([]);
+    const [layout, setLayout] = useState(() => {
+        const savedLayout = localStorage.getItem("layout");
+        return savedLayout ? JSON.parse(savedLayout) : [];
+    });
+
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight - 50);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowHeight(window.innerHeight - 50);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     const onLayoutChange = (layoutChange, layoutsChange) => {
-        console.log(layoutChange, layoutsChange)
+        localStorage.setItem("layout", JSON.stringify(layoutChange));
+        // console.log(layoutChange, layoutsChange)
     }
 
     const onDrop = (lay, item, event) => {
@@ -19,7 +39,7 @@ const FrameGrid = () => {
             return;
         }
 
-        console.log(lay)
+        // console.log(lay)
 
         const pluginData = JSON.parse(event.dataTransfer.getData("pluginData"));
 
@@ -52,7 +72,7 @@ const FrameGrid = () => {
             rowHeight={150}
             onLayoutChange={onLayoutChange}
             style={{
-                minHeight: "800px",
+                minHeight: `${windowHeight}px`,
                 boxShadow:
                     "rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px",
             }}
