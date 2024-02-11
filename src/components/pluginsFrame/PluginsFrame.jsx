@@ -13,7 +13,11 @@ const PluginsFrame = () => {
         { id: 4124, pluginName: "markets", pluginTitle: "Маркетплейсы", data: 4.8 },
         { id: 4412, pluginName: "test", pluginTitle: "тест", data: 4.8 },
     ]
+<<<<<<< HEAD
     const [menuVisible, setMenuVisible] = useState(true);
+=======
+    const [menuVisible, setMenuVisible] = useState(false);
+>>>>>>> origin/main
 
     const handleMenuToggle = () => {
         setMenuVisible(!menuVisible);
