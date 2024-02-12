@@ -1,61 +1,42 @@
 import React from 'react';
-import "./FrameGridElement.css"
+import "./FrameGridElement.css";
+import Plugin1 from '../../plugins/plugin1/Plugin1'; // Импорт компонента Plugin1
+import Plugin2 from '../../plugins/plugin2/Plugin2'; // Импорт компонента Plugin2
 import { CloseOutlined } from '@ant-design/icons';
 
-
 const FrameGridElement = ({ id, pluginDataMap, removePlugin }) => {
-    let content;
+    const pluginData = pluginDataMap[id];
 
-    switch (pluginDataMap[id].type) {
-        case "statistic":
-            content = (
-                <div className='frame-grid-element__content'>
-                    {pluginDataMap[id].pluginTitle}
-                    {pluginDataMap[id].data}
-                    <button
-                        style={{
-                            width: "40px",
-                            height: "30px",
-                            position: "absolute",
-                            top: "0",
-                            right: "0",
-                        }}
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            removePlugin(id);
-                        }}
-                    >
-                        <CloseOutlined />
-                    </button>
-                </div>
-            );
+    let content;
+    console.log(pluginData.pluginName)
+    switch (pluginData.pluginName) {
+        case "Plugin1":
+            content = Plugin1.renderForGrid();
             break;
-        case "text":
-            content = (
-                <div>
-                    {pluginDataMap[id] && pluginDataMap[id].pluginName}
-                    <button
-                        style={{
-                            width: "40px",
-                            height: "30px",
-                            position: "absolute",
-                            top: "0",
-                            right: "0",
-                        }}
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            removePlugin(id);
-                        }}
-                    >
-                        <CloseOutlined />
-                    </button>
-                </div>
-            );
+            case "Plugin2":
+                console.log(2)
+            content = Plugin2.renderForGrid();
             break;
         default:
             content = (
-                <div>
-                    дефолт
+                <div className='frame-grid-element__content'>
+                    <h3>{pluginData.pluginTitle}</h3>
+                    <p>{pluginData.data}</p>
+                    <button
+                        style={{
+                            width: "40px",
+                            height: "30px",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            removePlugin(id);
+                        }}
+                    >
+                        <CloseOutlined />
+                    </button>
                 </div>
             );
             break;

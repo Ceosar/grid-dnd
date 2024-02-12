@@ -1,14 +1,14 @@
 import React from 'react';
-import "./Plugin1.css"
+import "./Plugin2.css"
 
-const Plugin1 = {
+const Plugin2 = {
 
     pluginData: {
-        id: 4122,
-        pluginName: "Plugin1",
-        pluginTitle: "Отзывы",
-        data: 25246,
-        resize: false
+        id: 21,
+        pluginName: "Plugin2",
+        pluginTitle: "Маркетплейсы",
+        data: 4.8,
+        resize: true
     },
     renderForMenu: () => (
         <div
@@ -19,17 +19,17 @@ const Plugin1 = {
             draggable
             onDragStart={(e) => {
                 e.dataTransfer.setData("type", "container");
-                e.dataTransfer.setData("pluginData", JSON.stringify(Plugin1.pluginData));
+                e.dataTransfer.setData("pluginData", JSON.stringify(Plugin2.pluginData));
             }}
         >
-            <h3>Отзывы</h3>
+            <h3>Маркетплейсы</h3>
         </div>
     ),
     renderForGrid: () => (
         <div>
-            <h3>Отзывы frame</h3>
+            <h3>Маркетплейсы frame</h3>
         </div>
     )
 };
 
-export default Plugin1;
+export default Plugin2;
