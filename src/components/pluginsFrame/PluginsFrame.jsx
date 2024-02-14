@@ -40,7 +40,6 @@ const PluginsFrame = () => {
                     >
                         {plugins.map((pl, index) => (
                             <Menu.Item key={index}>
-                                {/* <PluginElement pluginData={pl} /> */}
                                 {pl.renderForMenu()}
                             </Menu.Item>
                         ))}

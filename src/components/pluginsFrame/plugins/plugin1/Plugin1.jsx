@@ -2,15 +2,16 @@ import React from 'react';
 import "./Plugin1.css"
 
 const Plugin1 = {
-
     pluginData: {
         id: 4122,
         pluginName: "Plugin1",
         pluginTitle: "Отзывы",
         data: 25246,
-        resize: false
+        resize: false,
+        height: 1,
+        width: 1,
     },
-    renderForMenu: () => (
+    renderForMenu: (pluginData) => (
         <div
             style={{
                 width: "100%",
@@ -25,9 +26,10 @@ const Plugin1 = {
             <h3>Отзывы</h3>
         </div>
     ),
-    renderForGrid: () => (
+    renderForGrid: (pluginData) => (
         <div>
             <h3>Отзывы frame</h3>
+            <h3>{pluginData.data}</h3>
         </div>
     )
 };

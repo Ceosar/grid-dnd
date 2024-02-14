@@ -51,7 +51,6 @@ const FrameGrid = () => {
             return;
         }
 
-        // console.log(lay)
 
         const pluginData = JSON.parse(event.dataTransfer.getData("pluginData"));
 
@@ -59,16 +58,21 @@ const FrameGrid = () => {
 
         const index = Math.random().toFixed(3);
 
+        savePluginData(index, pluginData);
+
+        const resizeHandles = JSON.parse(localStorage.getItem("pluginData"))[index].resize ? ["se"] : [];
+        const widthHandles = JSON.parse(localStorage.getItem("pluginData"))[index].width;
+        const heightHandles = JSON.parse(localStorage.getItem("pluginData"))[index].height;
         setLayout([
             ...new_lay,
             {
                 ...item,
                 i: String(index),
-                w: 1,
+                w: widthHandles,
+                h: heightHandles,
+                resizeHandles: resizeHandles,
             },
         ]);
-
-        savePluginData(index, pluginData);
     };
 
     const removePlugin = (id) => {
