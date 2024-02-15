@@ -13,7 +13,7 @@ const FrameGridElement = ({ id, pluginDataMap, removePlugin }) => {
             content = Plugin1.renderForGrid(Plugin1.pluginData);
             break;
         case "Plugin2":
-            content = Plugin2.renderForGrid();
+            content = Plugin2.renderForGrid(pluginData.size);
             break;
         default:
             content = (

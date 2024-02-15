@@ -22,10 +22,10 @@ const PluginsFrame = () => {
 
     return (
         <Row gutter={16} style={{ width: "100vw", height: "100vh" }}>
-            <Col span={menuVisible ? 21 : 23} style={{ padding: "16px" }}>
+            <Col span={menuVisible ? 19 : 23} style={{ padding: "16px" }}>
                 <FrameGrid plugins={plugins} />
             </Col>
-            <Col className='menu-wrapper' style={{ overflow: 'hidden' }} span={menuVisible ? 3 : 0}>
+            <Col className='menu-wrapper' style={{ overflow: 'hidden' }} span={menuVisible ? 5 : 0}>
                 <Button
                     type="primary"
                     shape="circle"
@@ -37,9 +37,10 @@ const PluginsFrame = () => {
                     <Menu
                         className={`custom-menu ${menuVisible ? "menu-open" : "menu-closed"}`}
                         mode='inline'
+                
                     >
                         {plugins.map((pl, index) => (
-                            <Menu.Item key={index}>
+                            <Menu.Item key={index} style={{height: "fit-content"}}>
                                 {pl.renderForMenu()}
                             </Menu.Item>
                         ))}
