@@ -8,37 +8,39 @@ const FrameGridElement = ({ id, pluginDataMap, removePlugin }) => {
     const pluginData = pluginDataMap[id];
 
     let content;
-    switch (pluginData.pluginName) {
-        case "Plugin1":
-            content = Plugin1.renderForGrid(Plugin1.pluginData);
-            break;
-        case "Plugin2":
-            content = Plugin2.renderForGrid(pluginData.size);
-            break;
-        default:
-            content = (
-                <div className='frame-grid-element__content'>
-                    Элемент не найден
-                    <button
-                        style={{
-                            width: "40px",
-                            height: "30px",
-                            position: "absolute",
-                            top: "0",
-                            right: "0",
-                        }}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            removePlugin(id);
-                        }}
-                    >
-                        <CloseOutlined />
-                    </button>
-                </div>
-            );
-            break;
+    if (pluginData && pluginData.pluginName) {
+        switch (pluginData.pluginName) {
+            case "Plugin1":
+                content = Plugin1.renderForGrid(pluginData.size);
+                break;
+            case "Plugin2":
+                content = Plugin2.renderForGrid(pluginData.size);
+                break;
+            default:
+                content = (
+                    <div className='frame-grid-element__content'>
+                        Элемент не найден
+                        <button
+                            style={{
+                                width: "40px",
+                                height: "30px",
+                                position: "absolute",
+                                top: "0",
+                                right: "0",
+                                zIndex:"999"
+                            }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                removePlugin(id);
+                            }}
+                        >
+                            <CloseOutlined />
+                        </button>
+                    </div>
+                );
+                break;
+        }
     }
-
     return (
         <section className='frame-grid-element__container'>
             <button
@@ -48,10 +50,12 @@ const FrameGridElement = ({ id, pluginDataMap, removePlugin }) => {
                     position: "absolute",
                     top: "0",
                     right: "0",
+                    zIndex:"999"
                 }}
                 onClick={(e) => {
                     e.stopPropagation();
                     removePlugin(id);
+                    console.log(1)
                 }}
             >
                 <CloseOutlined />

@@ -4,10 +4,14 @@ import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
 import FrameGridElement from "./frameGridElement/FrameGridElement";
 import "./FrameGrid.css"
+import { usePluginContext } from "../PluginsGlobalContext";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const FrameGrid = () => {
+    const { w, h } = usePluginContext();
+
+
     // const [layout, setLayout] = useState([]);
     const [layout, setLayout] = useState(() => {
         const savedLayout = localStorage.getItem("layout");
@@ -19,11 +23,11 @@ const FrameGrid = () => {
         return savedPluginData ? JSON.parse(savedPluginData) : {};
     });
 
-    const [windowHeight, setWindowHeight] = useState(window.innerHeight - 50);
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight - 100);
 
     useEffect(() => {
         const handleResize = () => {
-            setWindowHeight(window.innerHeight - 50);
+            setWindowHeight(window.innerHeight - 100);
         };
 
         window.addEventListener("resize", handleResize);
@@ -35,7 +39,14 @@ const FrameGrid = () => {
 
     const onLayoutChange = (layoutChange, layoutsChange) => {
         localStorage.setItem("layout", JSON.stringify(layoutChange));
-        // console.log(layoutChange, layoutsChange)
+        layoutChange.map((item) => {
+            if (item.i == "__dropping-elem__") {
+                item.w = w
+                item.h = h
+                item.resizeHandles = []
+            }
+        })
+        setLayout(layoutChange)
     }
 
     const savePluginData = (pluginId, data) => {

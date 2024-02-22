@@ -1,6 +1,7 @@
 import React from 'react';
+import { usePluginContext } from '../PluginsGlobalContext';
 
-const Test = ({ children, pluginData }) => {
+const PluginPrototype = ({ children, pluginData}) => {
     const pluginDataDef = {
         id: 21,
         pluginName: "Plugin2",
@@ -11,17 +12,23 @@ const Test = ({ children, pluginData }) => {
         width: 2,
     }
 
+    const {setMenuVisible, setW, setH} = usePluginContext();
+
+
     return (
         <div
             style={{
-                width: "200px",
-                height: "200px",
-                zIndex: 9999
+                width: "100%",
+                height: "100%",
+                touchAction: "none"
             }}
             draggable = {true}
             onDragStart={(e) => {
                 e.dataTransfer.setData("type", "container");
                 e.dataTransfer.setData("pluginData", JSON.stringify(pluginData ? pluginData : pluginDataDef));
+                setMenuVisible(false);
+                setW(pluginData.width)
+                setH(pluginData.height)
             }}
         >
             {children}
@@ -29,4 +36,4 @@ const Test = ({ children, pluginData }) => {
     );
 }
 
-export default Test;
+export default PluginPrototype;
