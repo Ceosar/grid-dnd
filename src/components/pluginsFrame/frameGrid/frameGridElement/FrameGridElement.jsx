@@ -50,12 +50,15 @@ const FrameGridElement = ({ id, pluginDataMap, removePlugin }) => {
                     position: "absolute",
                     top: "0",
                     right: "0",
-                    zIndex:"999"
+                    zIndex:"9999"
                 }}
                 onClick={(e) => {
                     e.stopPropagation();
                     removePlugin(id);
-                    console.log(1)
+                }}
+                onTouchEnd={(e) => {
+                    e.stopPropagation();
+                    removePlugin(id);
                 }}
             >
                 <CloseOutlined />
